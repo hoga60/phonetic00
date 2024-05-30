@@ -16,6 +16,7 @@
 import os
 import sys
 from argparse import ArgumentParser
+import readPhonetic as rp
 
 from flask import Flask, request, abort
 from linebot import (
@@ -64,10 +65,10 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
-
+        
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=event.message.text)
+            TextSendMessage(text=rp.read( event.message.text ))
         )
 
     return 'OK'
